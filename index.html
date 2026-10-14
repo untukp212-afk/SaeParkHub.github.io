@@ -1,0 +1,534 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Sae Park Hub</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky top bar, six hash-routed pages, photo hero, card grids for shop, a single order sheet. Palette: white ground with leaf and forest greens. */
+:root{
+  --bg:#ffffff; --surface:#ffffff; --fg:#14281e; --muted:#587062; --line:#dce9e0;
+  --leaf:#2f8a57; --leaf-ink:#ffffff; --deep:#1c5a3a; --mist:#edf6f0; --bamboo:#3d9a63; --bamboo-soft:#e2f1e7;
+  --hero-a:#e9f4ed; --hero-b:#cfe6d7; --hero-c:#7fb995; --hero-d:#2f8a57; --sun:#bfe6cd;
+  --f-display:"Bricolage Grotesque","Trebuchet MS",system-ui,sans-serif;
+  --f-body:"Figtree",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --r:14px;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --bg:#0f1a14; --surface:#16251c; --fg:#eaf3ed; --muted:#9db3a5; --line:#29402f;
+  --leaf:#6fcf93; --leaf-ink:#0b2616; --deep:#dcefe2; --mist:#1a2e22; --bamboo:#6fcf93; --bamboo-soft:#1f3a29;
+  --hero-a:#1a2e22; --hero-b:#24382b; --hero-c:#2f8a57; --hero-d:#1a2e22; --sun:#9fdcb4; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0f1a14; --surface:#16251c; --fg:#eaf3ed; --muted:#9db3a5; --line:#29402f;
+  --leaf:#6fcf93; --leaf-ink:#0b2616; --deep:#dcefe2; --mist:#1a2e22; --bamboo:#6fcf93; --bamboo-soft:#1f3a29;
+  --hero-a:#1a2e22; --hero-b:#24382b; --hero-c:#2f8a57; --hero-d:#1a2e22; --sun:#9fdcb4; color-scheme:dark}
+
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--fg);font:16px/1.6 var(--f-body);padding-inline:0}
+h1,h2,h3{font-family:var(--f-display);line-height:1.08;margin:0;text-wrap:balance;letter-spacing:-.01em}
+h1{font-size:clamp(2.3rem,6.5vw,4.4rem);font-weight:800}
+h2{font-size:clamp(1.7rem,3.6vw,2.5rem);font-weight:700}
+h3{font-size:1.15rem;font-weight:700}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+:focus-visible{outline:3px solid var(--bamboo);outline-offset:2px;border-radius:6px}
+.eyebrow{font-size:.78rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--leaf)}
+.lead{font-size:1.1rem;color:var(--muted);max-width:60ch}
+
+/* notice */
+.notice{background:var(--bamboo-soft);color:var(--fg);font-size:.88rem;border-bottom:1px solid var(--line)}
+.notice .wrap{display:flex;gap:12px;align-items:center;justify-content:space-between;padding-block:8px}
+.notice button{background:none;border:1px solid var(--bamboo);color:var(--fg);border-radius:999px;padding:3px 12px;font:inherit;font-size:.8rem;cursor:pointer}
+
+/* header */
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+header.top .wrap{display:flex;align-items:center;gap:16px;min-height:64px}
+.brand{display:flex;align-items:center;gap:10px;text-decoration:none;font-family:var(--f-display);font-weight:800;font-size:1.2rem}
+.brand svg{width:34px;height:34px;flex:none}
+nav.main{display:flex;gap:2px;margin-left:auto}
+nav.main a{text-decoration:none;padding:8px 12px;border-radius:999px;font-weight:600;font-size:.95rem;color:var(--muted)}
+nav.main a:hover{color:var(--fg);background:var(--mist)}
+nav.main a[aria-current="page"]{background:var(--deep);color:var(--bg)}
+.cartbtn{display:inline-flex;gap:8px;align-items:center;text-decoration:none;background:var(--leaf);color:var(--leaf-ink);padding:8px 14px;border-radius:999px;font-weight:700;font-size:.9rem}
+.cartbtn b{background:var(--leaf-ink);color:var(--leaf);border-radius:999px;min-width:22px;height:22px;display:grid;place-items:center;font-size:.78rem;padding-inline:5px}
+.menubtn{display:none;margin-left:auto;background:none;border:1px solid var(--line);color:var(--fg);border-radius:10px;padding:8px 12px;font:inherit;font-weight:600;cursor:pointer}
+@media (max-width:860px){
+  .menubtn{display:block}
+  nav.main{display:none;position:absolute;left:0;right:0;top:100%;flex-direction:column;background:var(--bg);border-bottom:1px solid var(--line);padding:8px max(16px,env(safe-area-inset-left,0px)) 16px;margin:0}
+  nav.main.open{display:flex}
+  nav.main a{padding:12px;font-size:1rem}
+  .cartbtn{margin-left:0}
+}
+@media (max-width:420px){.brand span{font-size:1.05rem}.cartbtn span.t{display:none}}
+
+/* pages */
+.page{display:none;animation:in .35s ease both}
+.page.active{display:block}
+@keyframes in{from{opacity:.001;transform:translateY(6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.page{animation:none}}
+.section{padding-block:56px}
+.section.tight{padding-block:32px}
+.head{display:grid;gap:12px;margin-bottom:28px}
+
+/* hero */
+.hero{position:relative;overflow:hidden;background:linear-gradient(180deg,var(--hero-a),var(--hero-b));isolation:isolate}
+.hero .art{position:absolute;inset:0;z-index:-1}
+.hero .art img{width:100%;height:100%;object-fit:cover;object-position:50% 55%;display:block}
+.hero .art .scrim{position:absolute;inset:0;background:linear-gradient(90deg,rgba(8,40,24,.84) 0%,rgba(8,40,24,.55) 55%,rgba(8,40,24,.12) 100%)}
+.hero .wrap{padding-block:88px 110px;display:grid;gap:22px}
+.hero h1{color:#fff;max-width:14ch}
+.hero p.lead{color:#eaf3ee;opacity:.95}
+.hero .eyebrow{color:var(--sun)!important}
+.hero .btn.ghost{color:#fff}
+.cta-row{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;gap:8px;border:0;border-radius:999px;padding:13px 22px;font:inherit;font-weight:700;text-decoration:none;cursor:pointer;background:var(--leaf);color:var(--leaf-ink)}
+.btn:hover{filter:brightness(1.08)}
+.btn.ghost{background:transparent;color:var(--fg);border:1.5px solid currentColor}
+.btn.sm{padding:9px 16px;font-size:.9rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed}
+.stats{display:flex;flex-wrap:wrap;gap:10px 28px;margin-top:6px}
+.stats div{font-size:.92rem;color:var(--deep)}
+[data-theme="dark"] .stats div{color:#e8f1ec}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .stats div{color:#e8f1ec}}
+.stats b{font-family:var(--f-display);font-size:1.4rem;display:block}
+
+/* cards & grids */
+.grid{display:grid;gap:20px;grid-template-columns:repeat(auto-fill,minmax(250px,1fr))}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.card .body{padding:16px 18px 18px;display:grid;gap:8px;flex:1;align-content:start}
+.card .art{aspect-ratio:4/3;background:var(--mist)}
+.card .art{aspect-ratio:1/1}
+.card .art img{width:100%;height:100%;object-fit:cover;display:block}
+.price{font-family:var(--f-display);font-weight:700;font-size:1.15rem;color:var(--leaf)}
+.tag{display:inline-block;font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;background:var(--bamboo-soft);color:var(--fg);padding:3px 9px;border-radius:999px;width:max-content}
+.muted{color:var(--muted)}
+.small{font-size:.88rem}
+.card .row{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:auto;padding-top:8px}
+
+.split{display:grid;gap:36px;grid-template-columns:1.1fr .9fr;align-items:start}
+@media (max-width:860px){.split{grid-template-columns:1fr}}
+.pillars{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))}
+.pillar{padding:18px 20px;border-radius:var(--r);background:var(--mist);display:grid;gap:6px}
+.band{background:var(--deep);color:var(--bg)}
+.band .eyebrow{color:var(--sun)}
+.band .lead{color:inherit;opacity:.8}
+.band .btn{background:var(--leaf);color:var(--leaf-ink)}
+
+/* steps */
+.steps{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));counter-reset:s;padding:0;margin:0;list-style:none}
+.steps li{counter-increment:s;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:14px 16px;font-weight:600;display:grid;gap:4px}
+.steps li::before{content:counter(s);font-family:var(--f-display);color:var(--leaf);font-size:1.5rem;font-weight:800}
+
+/* gallery */
+.gallery{display:grid;gap:12px;grid-template-columns:repeat(auto-fill,minmax(220px,1fr))}
+.gallery button{all:unset;cursor:pointer;display:block;position:relative;border-radius:var(--r);overflow:hidden;aspect-ratio:1/1}
+.gallery button:first-child{grid-column:span 2;aspect-ratio:2/1}
+@media (max-width:520px){.gallery button:first-child{grid-column:span 1;aspect-ratio:1/1}}
+.gallery img{width:100%;height:100%;object-fit:cover;display:block}
+.gallery button span{position:absolute;left:0;right:0;bottom:0;padding:22px 14px 10px;color:#fff;font-weight:600;font-size:.9rem;background:linear-gradient(transparent,rgba(8,40,24,.78))}
+.gallery button:focus-visible{outline:3px solid var(--bamboo)}
+dialog{border:0;border-radius:var(--r);padding:0;max-width:min(920px,94vw);width:100%;background:var(--surface);color:var(--fg)}
+dialog::backdrop{background:rgba(4,16,11,.7)}
+dialog .cap{padding:14px 18px;display:flex;justify-content:space-between;gap:12px;align-items:center}
+dialog img{width:100%;height:auto;display:block;max-height:75vh;object-fit:contain;background:#000}
+
+/* info */
+.facts{display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(240px,1fr))}
+.fact{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:10px;align-content:start}
+.fact table{width:100%;border-collapse:collapse;font-variant-numeric:tabular-nums}
+.fact td{padding:7px 0;border-bottom:1px solid var(--line)}
+.fact tr:last-child td{border-bottom:0}
+.fact td:last-child{text-align:right;font-weight:700}
+.fac{display:flex;flex-wrap:wrap;gap:8px;padding:0;margin:0;list-style:none}
+.fac li{background:var(--mist);padding:6px 12px;border-radius:999px;font-size:.9rem;font-weight:500}
+.map{border-radius:var(--r);overflow:hidden;border:1px solid var(--line);background:var(--surface)}
+.map a.pic{display:block;position:relative}
+.map img{display:block;width:100%;height:auto;max-height:520px;object-fit:cover}
+.map .credit{position:absolute;right:10px;bottom:10px;background:rgba(255,255,255,.88);color:#333;font-size:.72rem;padding:2px 8px;border-radius:6px}
+.map .body{padding:16px 18px;display:flex;gap:14px;flex-wrap:wrap;justify-content:space-between;align-items:center}
+
+/* filters */
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:22px}
+.chip{border:1.5px solid var(--line);background:var(--surface);color:var(--fg);font:inherit;font-weight:600;font-size:.9rem;padding:7px 16px;border-radius:999px;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--deep);color:var(--bg);border-color:var(--deep)}
+
+/* order */
+.order{display:grid;gap:28px;grid-template-columns:1.15fr .85fr;align-items:start}
+@media (max-width:900px){.order{grid-template-columns:1fr}}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:20px;display:grid;gap:14px;min-width:0}
+.line{display:grid;grid-template-columns:1fr auto;gap:4px 12px;align-items:center;padding:12px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border-bottom:0}
+.line .nm{font-weight:600}
+.qty{display:inline-flex;align-items:center;border:1.5px solid var(--line);border-radius:999px;overflow:hidden}
+.qty button{width:34px;height:34px;border:0;background:none;color:var(--fg);font:inherit;font-size:1.1rem;cursor:pointer}
+.qty button:hover{background:var(--mist)}
+.qty output{min-width:28px;text-align:center;font-weight:700;font-variant-numeric:tabular-nums}
+label{display:grid;gap:6px;font-weight:600;font-size:.92rem}
+input,select,textarea{font:inherit;color:var(--fg);background:var(--bg);border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;width:100%;min-width:0}
+textarea{min-height:96px;resize:vertical}
+.fields{display:grid;gap:14px;grid-template-columns:1fr 1fr}
+@media (max-width:560px){.fields{grid-template-columns:1fr}}
+.total{display:flex;justify-content:space-between;align-items:baseline;font-family:var(--f-display);font-size:1.5rem;font-weight:800}
+.total span:last-child{color:var(--leaf)}
+.empty{padding:20px;text-align:center;color:var(--muted);border:1.5px dashed var(--line);border-radius:10px}
+.done{background:var(--mist);border-radius:var(--r);padding:20px;display:grid;gap:12px}
+.done pre{white-space:pre-wrap;word-break:break-word;font:inherit;font-size:.92rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0}
+.err{color:#b3261e;font-size:.85rem;font-weight:600}
+[data-theme="dark"] .err{color:#ff9a90}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .err{color:#ff9a90}}
+
+/* footer */
+footer{background:var(--deep);color:var(--bg);margin-top:40px}
+footer .wrap{padding-block:40px;display:grid;gap:28px;grid-template-columns:1.4fr 1fr 1fr}
+@media (max-width:760px){footer .wrap{grid-template-columns:1fr}}
+footer a{display:block;text-decoration:none;opacity:.85;padding:3px 0}
+footer a:hover{opacity:1;text-decoration:underline}
+footer h3{color:var(--sun);font-size:.9rem;letter-spacing:.08em;text-transform:uppercase;margin-bottom:8px}
+footer .legal{grid-column:1/-1;border-top:1px solid rgba(255,255,255,.18);padding-top:18px;font-size:.85rem;opacity:.75}
+[data-theme="dark"] footer,:root[data-theme="dark"] footer{background:#08120c;color:#eaf3ed}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) footer{background:#08120c;color:#eaf3ed}}
+.sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--deep);color:var(--bg);padding:10px 18px;border-radius:999px;font-weight:600;font-size:.9rem;z-index:50;box-shadow:0 6px 24px rgba(0,0,0,.25)}
+</style>
+
+<div class="notice" id="notice"><div class="wrap"><span>Harga, jam buka, dan nomor WhatsApp di situs ini adalah data contoh. Pengelola menggantinya di bagian <b>CONFIG</b> pada berkas.</span><button type="button" id="noticeClose">Tutup</button></div></div>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#beranda" aria-label="Sae Park Hub, ke beranda">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="11" fill="var(--leaf)"/><path d="M8 29c4-1 6-5 6-9 0-4 2-8 6-10 0 6 2 8 5 10 2 1 4 4 4 9" fill="none" stroke="var(--leaf-ink)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="29" cy="13" r="3" fill="var(--sun)"/></svg>
+      <span>Sae Park Hub</span>
+    </a>
+    <button class="menubtn" id="menubtn" type="button" aria-expanded="false" aria-controls="mainnav">Menu</button>
+    <nav class="main" id="mainnav" aria-label="Navigasi utama">
+      <a href="#beranda" data-nav="beranda">Beranda</a>
+      <a href="#wisata" data-nav="wisata">Wisata</a>
+      <a href="#informasi" data-nav="informasi">Info Kunjungan</a>
+      <a href="#toko" data-nav="toko">Toko</a>
+      <a href="#pemesanan" data-nav="pemesanan">Pesan</a>
+      <a href="#kontak" data-nav="kontak">Kontak</a>
+    </nav>
+    <a class="cartbtn" href="#pemesanan" aria-label="Keranjang pesanan"><span class="t">Pesanan</span><b id="cartCount">0</b></a>
+  </div>
+</header>
+
+<main>
+<!-- BERANDA -->
+<section class="page" id="p-beranda" data-title="Beranda">
+  <div class="hero">
+    <div class="art" id="heroArt" aria-hidden="true"></div>
+    <div class="wrap">
+      <span class="eyebrow">Wisata alam dan kerajinan lokal</span>
+      <h1>Nikmati asri alam dan kerajinan lokal Sae Park</h1>
+      <p class="lead">Jelajahi lingkungan yang hijau, rencanakan kunjunganmu, dan bawa pulang kerajinan buatan warga sekitar. Semua bisa dipesan dari satu situs.</p>
+      <div class="cta-row">
+        <a class="btn" href="#pemesanan">Ayo Berkunjung</a>
+        <a class="btn ghost" href="#toko">Lihat Kerajinan</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Produk terlaris</span><h2>Kerajinan yang paling sering dibawa pulang</h2></div>
+    <div class="grid" id="bestsellers"></div>
+    <div style="margin-top:24px"><a class="btn ghost" href="#toko">Semua produk</a></div>
+  </div>
+
+  <div class="section tight wrap">
+    <div class="split">
+      <div class="head" style="margin:0"><span class="eyebrow">Kenapa Sae Park</span><h2>Alam yang asri dan tangan-tangan perajin di sekitarnya</h2>
+        <p class="lead">Setiap pembelian kerajinan dan tiket masuk menggerakkan ekonomi warga sekitar. Pesananmu dicatat rapi dan dikonfirmasi lewat WhatsApp.</p></div>
+      <div class="pillars">
+        <div class="pillar"><h3>Lingkungan asri</h3><p class="small muted">Taman, pepohonan, dan udara sejuk untuk keluarga dan rombongan.</p></div>
+        <div class="pillar"><h3>Kerajinan unik</h3><p class="small muted">Dibuat warga setempat, dijual lengkap dengan cerita perajin.</p></div>
+        <div class="pillar"><h3>Pesan dari mana saja</h3><p class="small muted">Tiket dan produk dapat dipesan kapan saja dari ponsel.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="section tight wrap">
+    <div class="head"><span class="eyebrow">Alur pemesanan</span><h2>Enam langkah dari penasaran sampai tiba</h2></div>
+    <ol class="steps">
+      <li>Temukan Sae Park</li><li>Buka situs ini</li><li>Lihat galeri dan katalog</li><li>Pilih tiket atau produk</li><li>Pesan dan bayar</li><li>Konfirmasi lewat WhatsApp</li>
+    </ol>
+  </div>
+
+  <div class="band" style="margin-top:32px"><div class="section wrap split">
+    <div class="head" style="margin:0"><span class="eyebrow">Informasi kunjungan</span><h2>Jam buka, harga tiket, dan peta</h2><p class="lead">Semua yang perlu kamu tahu sebelum berangkat ada di satu halaman.</p></div>
+    <div><a class="btn" href="#informasi">Rencanakan kunjungan</a></div>
+  </div></div>
+</section>
+
+<!-- WISATA -->
+<section class="page" id="p-wisata" data-title="Wisata">
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Profil wisata</span><h1 style="font-size:clamp(2rem,5vw,3.2rem)">Mengenal Sae Park</h1>
+      <p class="lead">Sae Park adalah kawasan wisata dengan lingkungan yang asri, tempat warga setempat membuat dan menjual kerajinan unik. Keindahan alam dan karya lokal bertemu di satu tempat, menjadi daya tarik wisata sekaligus sentra ekonomi kreatif.</p></div>
+    <div class="pillars">
+      <div class="pillar"><h3>Keasrian lingkungan</h3><p class="small muted">Ruang hijau yang terawat, cocok untuk berjalan santai, berfoto, dan beristirahat.</p></div>
+      <div class="pillar"><h3>Kerajinan warga</h3><p class="small muted">Karya perajin setempat yang bisa dilihat langsung dan dibeli di lokasi atau lewat situs ini.</p></div>
+      <div class="pillar"><h3>Untuk semua usia</h3><p class="small muted">Keluarga, sekolah, dan komunitas dapat berkunjung dan belajar dari perajin.</p></div>
+    </div>
+  </div>
+  <div class="section tight wrap">
+    <div class="head"><span class="eyebrow">Galeri</span><h2>Suasana Sae Park</h2><p class="lead">Jalan setapak, rumah kayu, pojok teh dan jamu, sampai tempat membuat kerajinan. Ketuk foto untuk memperbesar.</p></div>
+    <div class="gallery" id="gallery"></div>
+  </div>
+  <dialog id="lightbox" aria-label="Pratinjau galeri"><div id="lbArt"></div><div class="cap"><b id="lbCap"></b><button class="btn sm" type="button" id="lbClose">Tutup</button></div></dialog>
+</section>
+
+<!-- INFORMASI -->
+<section class="page" id="p-informasi" data-title="Info Kunjungan">
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Informasi kunjungan</span><h1 style="font-size:clamp(2rem,5vw,3.2rem)">Rencanakan kunjunganmu</h1></div>
+    <div class="facts">
+      <div class="fact"><h3>Jam buka</h3><table id="hoursTbl"></table></div>
+      <div class="fact"><h3>Harga tiket</h3><table id="ticketTbl"></table><a class="btn sm" href="#pemesanan" style="justify-self:start">Pesan tiket</a></div>
+      <div class="fact"><h3>Fasilitas</h3><ul class="fac" id="facList"></ul></div>
+    </div>
+  </div>
+  <div class="section tight wrap">
+    <div class="head"><span class="eyebrow">Peta lokasi</span><h2>Menuju Sae Park</h2></div>
+    <div class="map" id="mapCard"></div>
+  </div>
+</section>
+
+<!-- TOKO -->
+<section class="page" id="p-toko" data-title="Toko Kerajinan">
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Toko kerajinan</span><h1 style="font-size:clamp(2rem,5vw,3.2rem)">Kerajinan buatan warga Sae Park</h1>
+      <p class="lead">Setiap produk dilengkapi foto, harga, dan cerita perajin. Tambahkan ke pesanan, lalu selesaikan di halaman Pesan.</p></div>
+    <div class="filters" id="filters" role="group" aria-label="Filter kategori"></div>
+    <div class="grid" id="shop"></div>
+  </div>
+</section>
+
+<!-- PEMESANAN -->
+<section class="page" id="p-pemesanan" data-title="Pemesanan">
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Pemesanan</span><h1 style="font-size:clamp(2rem,5vw,3.2rem)">Pesan tiket dan kerajinan</h1>
+      <p class="lead">Isi jumlah, lengkapi data, lalu kirim ringkasan pesanan lewat WhatsApp. Pengelola akan mengonfirmasi dan memberi tahu cara pembayaran.</p></div>
+    <div class="order">
+      <div class="panel">
+        <h3>Tiket masuk</h3><div id="ticketLines"></div>
+        <h3 style="margin-top:8px">Kerajinan</h3><div id="productLines"></div>
+        <p class="small muted">Tambah produk lain dari halaman <a href="#toko">Toko</a>.</p>
+      </div>
+      <div>
+        <form class="panel" id="orderForm" novalidate>
+          <h3>Ringkasan</h3>
+          <div id="summary"></div>
+          <div class="total"><span>Total</span><span id="total">Rp 0</span></div>
+          <div class="fields">
+            <label for="f-name">Nama<input id="f-name" autocomplete="name" required><span class="err" id="e-name" hidden>Isi nama pemesan.</span></label>
+            <label for="f-phone">Nomor WhatsApp<input id="f-phone" inputmode="tel" autocomplete="tel" placeholder="08xxxxxxxxxx" required><span class="err" id="e-phone" hidden>Isi nomor WhatsApp yang valid.</span></label>
+            <label for="f-date">Tanggal kunjungan<input id="f-date" type="date"></label>
+            <label for="f-pay">Pembayaran<select id="f-pay"><option>Transfer bank</option><option>Dompet digital</option><option>Bayar di lokasi</option></select></label>
+          </div>
+          <label for="f-note">Catatan<textarea id="f-note" placeholder="Contoh: rombongan sekolah, ingin dipandu perajin."></textarea></label>
+          <span class="err" id="e-cart" hidden>Pilih minimal satu tiket atau produk.</span>
+          <button class="btn" type="submit">Buat pesan konfirmasi</button>
+        </form>
+        <div class="done" id="done" hidden style="margin-top:16px">
+          <h3>Pesanan siap dikirim</h3>
+          <p class="small muted">Pesanan belum terkirim sampai kamu mengirim pesan ini ke WhatsApp pengelola.</p>
+          <pre id="msg"></pre>
+          <div class="cta-row"><a class="btn" id="waSend" href="#" target="_blank" rel="noopener">Kirim lewat WhatsApp</a><button class="btn ghost" type="button" id="copyMsg">Salin pesan</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- KONTAK -->
+<section class="page" id="p-kontak" data-title="Kontak">
+  <div class="section wrap">
+    <div class="head"><span class="eyebrow">Kontak</span><h1 style="font-size:clamp(2rem,5vw,3.2rem)">Tanya apa saja ke pengelola</h1>
+      <p class="lead">Untuk rombongan, kunjungan sekolah, atau pesanan khusus, hubungi kami lewat WhatsApp atau tulis pertanyaanmu di bawah.</p></div>
+    <div class="split">
+      <form class="panel" id="askForm" novalidate>
+        <div class="fields">
+          <label for="a-name">Nama<input id="a-name" autocomplete="name"></label>
+          <label for="a-phone">Nomor WhatsApp (opsional)<input id="a-phone" inputmode="tel"></label>
+        </div>
+        <label for="a-msg">Pertanyaan<textarea id="a-msg" placeholder="Tulis pertanyaanmu di sini."></textarea></label>
+        <span class="err" id="e-ask" hidden>Tulis pertanyaan terlebih dahulu.</span>
+        <div class="cta-row"><button class="btn" type="submit">Kirim lewat WhatsApp</button></div>
+      </form>
+      <div class="panel">
+        <h3>Hubungi langsung</h3>
+        <p><span class="muted small">WhatsApp</span><br><b id="waShow"></b></p>
+        <p><span class="muted small">Instagram</span><br><b id="igShow"></b></p>
+        <div class="cta-row"><a class="btn sm" id="waDirect" href="#" target="_blank" rel="noopener">Buka WhatsApp</a><a class="btn sm ghost" id="igDirect" href="#" target="_blank" rel="noopener">Buka Instagram</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <div><h3>Sae Park Hub</h3><p class="small" style="opacity:.85;max-width:44ch">Situs promosi wisata dan penjualan kerajinan Sae Park, Salatiga, Jawa Tengah.</p></div>
+    <div><h3>Halaman</h3><a href="#wisata">Wisata</a><a href="#informasi">Info Kunjungan</a><a href="#toko">Toko Kerajinan</a><a href="#pemesanan">Pemesanan</a></div>
+    <div><h3>Hubungi</h3><a id="fWa" href="#" target="_blank" rel="noopener">WhatsApp</a><a id="fIg" href="#" target="_blank" rel="noopener">Instagram</a><a href="#kontak">Formulir pertanyaan</a></div>
+    <div class="legal">Dirancang dalam proyek PELITA 2026, MAN 3 Sleman, oleh Adis Rafif Muafa, Muhammad Fayiz Khouri, dan Muhammad Salman Jannah. Kelas XD.</div>
+  </div>
+</footer>
+<div class="toast" id="toast" role="status" hidden></div>
+
+<script>
+/* ============ CONFIG: pengelola cukup mengubah bagian ini ============ */
+const CONFIG={
+  name:"Sae Park",
+  whatsapp:"6281234567890",          // format internasional tanpa +
+  whatsappLabel:"+62 812-3456-7890",
+  instagram:"saeparksalatiga",             // nama akun tanpa @
+  mapsUrl:"https://maps.app.goo.gl/iMUXKWLdJx3HUjwN8",
+  address:"Sae Park (Salatiga Eco Park), dekat SAE Resto, Jl. Magelang–Salatiga, Jawa Tengah",
+  hours:[["Senin – Jumat","08.00 – 17.00"],["Sabtu – Minggu","07.00 – 18.00"],["Hari libur nasional","07.00 – 18.00"]],
+  tickets:[
+    {id:"t-dewasa",name:"Tiket Dewasa",price:15000},
+    {id:"t-anak",name:"Tiket Anak (3–12 th)",price:10000},
+    {id:"t-rombongan",name:"Tiket Rombongan (min. 20 orang), per orang",price:8000}
+  ],
+  facilities:["Area parkir","Musala","Toilet","Spot foto","Warung makanan","Pemandu wisata","Toko kerajinan","Area duduk teduh"],
+  categories:["Semua","Anyaman","Dekorasi","Daur ulang","Suvenir"],
+  products:[
+    {id:"p1",name:"Keranjang Anyaman",cat:"Anyaman",price:55000,best:true,img:"anyaman",pos:"50% 62%",story:"Keranjang dan tas anyaman berbagai ukuran, dibuat dengan tangan."},
+    {id:"p2",name:"Piring Hias Lukis",cat:"Dekorasi",price:32000,best:true,img:"piring-lukis",pos:"50% 70%",story:"Piring dekorasi bergambar bunga, kupu-kupu, dan motif lain, tiap lukisan berbeda."},
+    {id:"p3",name:"Gantungan Kunci Botol Tanaman",cat:"Suvenir",price:15000,best:true,img:"botol-tanaman",pos:"50% 60%",story:"Botol kaca mungil berisi tanaman dan cairan warna-warni."},
+    {id:"p4",name:"Tatakan dan Sisir Daur Ulang",cat:"Daur ulang",price:25000,img:"plastik-daur-ulang",pos:"50% 68%",story:"Dicetak dari tutup botol plastik bekas. Ada tatakan, sisir, dan gantungan kunci."},
+    {id:"p5",name:"Gantungan Kunci Resin Perak",cat:"Suvenir",price:20000,img:"gantungan-botol",pos:"50% 75%",story:"Gantungan kunci berbentuk jangkar dan hewan laut, dipajang di dinding anyaman bambu."},
+    {id:"p6",name:"Cangkir Keramik",cat:"Dekorasi",price:60000,img:"cangkir",pos:"50% 55%",story:"Cangkir keramik berglasir aneka warna."},
+    {id:"p7",name:"Produk Upcycle Kayu dan Ban",cat:"Daur ulang",price:45000,img:"upcycle",pos:"50% 62%",story:"Tatakan kayu, pembatas, dan bingkai dari bahan bekas."}
+  ],
+  gallery:[
+    {img:"hero",pos:"50% 50%",cap:"Bangunan SAE Resto dari jalan masuk"},
+    {img:"rumah-kayu",pos:"50% 45%",cap:"Rumah kayu dengan papan nama tanaman"},
+    {img:"oemah-teh",pos:"60% 50%",cap:"Oemah Teh di bawah pepohonan"},
+    {img:"tempat-sampah",pos:"50% 40%",cap:"Tempat sampah dari botol bekas"},
+    {img:"pojok-teh",pos:"50% 50%",cap:"Pojok teh dan racikan herbal"},
+    {img:"rempah",pos:"50% 50%",cap:"Rak rempah dan bahan jamu"},
+    {img:"tungku",pos:"40% 60%",cap:"Ruang pamer tradisional dengan tungku"},
+    {img:"pemintal",pos:"60% 50%",cap:"Alat pemintal benang tradisional"},
+    {img:"cangkir",pos:"50% 50%",cap:"Cangkir keramik menggantung di bawah atap"},
+    {img:"piring-lukis",pos:"50% 60%",cap:"Dinding piring hias lukis"},
+    {img:"anyaman",pos:"50% 60%",cap:"Anyaman dinding dan keranjang"},
+    {img:"upcycle",pos:"50% 60%",cap:"Meja produk upcycle"},
+    {img:"botol-tanaman",pos:"50% 55%",cap:"Gantungan kunci botol tanaman"},
+    {img:"plastik-daur-ulang",pos:"50% 65%",cap:"Kerajinan dari tutup botol plastik"},
+    {img:"lilin",pos:"50% 50%",cap:"Workshop membuat lilin"}
+  ]
+};
+/* ===================================================================== */
+const $=s=>document.querySelector(s),$$=s=>[...document.querySelectorAll(s)];
+const rp=n=>"Rp "+n.toLocaleString("id-ID");
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const wa=t=>"https://wa.me/"+CONFIG.whatsapp+"?text="+encodeURIComponent(t);
+const igUrl="https://www.instagram.com/"+CONFIG.instagram;
+const mapsUrl=CONFIG.mapsUrl;
+
+/* ---------- foto ---------- */
+const photo=(name,pos,alt)=>`<img src="img/${name}.jpg" alt="${esc(alt||"")}" loading="lazy" decoding="async" style="object-position:${pos||"50% 50%"}">`;
+function heroArt(){
+  $("#heroArt").innerHTML=`<img src="img/hero.jpg" alt="" decoding="async" fetchpriority="high"><div class="scrim"></div>`;
+}
+
+/* ---------- keranjang ---------- */
+let cart={};
+try{cart=JSON.parse(localStorage.getItem("sph-cart")||"{}")}catch(e){cart={}}
+const ALL=[...CONFIG.tickets,...CONFIG.products];
+const find=id=>ALL.find(x=>x.id===id);
+function save(){try{localStorage.setItem("sph-cart",JSON.stringify(cart))}catch(e){}}
+function setQty(id,q){q=Math.max(0,Math.min(99,q));if(q)cart[id]=q;else delete cart[id];save();renderCart()}
+const count=()=>Object.values(cart).reduce((a,b)=>a+b,0);
+const total=()=>Object.entries(cart).reduce((s,[id,q])=>s+(find(id)?find(id).price*q:0),0);
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function qtyUI(id){return `<div class="qty" role="group" aria-label="Jumlah"><button type="button" data-q="${id}" data-d="-1" aria-label="Kurangi">−</button><output>${cart[id]||0}</output><button type="button" data-q="${id}" data-d="1" aria-label="Tambah">+</button></div>`}
+function renderCart(){
+  $("#cartCount").textContent=count();
+  $("#ticketLines").innerHTML=CONFIG.tickets.map(t=>`<div class="line"><span class="nm">${esc(t.name)}</span>${qtyUI(t.id)}<span class="muted small">${rp(t.price)}</span></div>`).join("");
+  const prods=CONFIG.products.filter(p=>cart[p.id]);
+  $("#productLines").innerHTML=prods.length?prods.map(p=>`<div class="line"><span class="nm">${esc(p.name)}</span>${qtyUI(p.id)}<span class="muted small">${rp(p.price)}</span></div>`).join(""):`<div class="empty">Belum ada kerajinan dipilih.</div>`;
+  const items=Object.entries(cart).map(([id,q])=>[find(id),q]).filter(x=>x[0]);
+  $("#summary").innerHTML=items.length?items.map(([it,q])=>`<div class="line"><span>${q} × ${esc(it.name)}</span><b>${rp(it.price*q)}</b></div>`).join(""):`<div class="empty">Pesananmu masih kosong.</div>`;
+  $("#total").textContent=rp(total());
+  $$("[data-add]").forEach(b=>{b.textContent=cart[b.dataset.add]?`Di pesanan (${cart[b.dataset.add]})`:"Tambah"});
+}
+document.addEventListener("click",e=>{
+  const q=e.target.closest("[data-q]");if(q){setQty(q.dataset.q,(cart[q.dataset.q]||0)+ +q.dataset.d);return}
+  const a=e.target.closest("[data-add]");if(a){setQty(a.dataset.add,(cart[a.dataset.add]||0)+1);toast("Ditambahkan ke pesanan")}
+});
+
+/* ---------- render konten ---------- */
+function card(p){return `<article class="card"><div class="art">${photo(p.img,p.pos,p.name)}</div><div class="body"><span class="tag">${esc(p.cat)}</span><h3>${esc(p.name)}</h3><p class="small muted">${esc(p.story)}</p><div class="row"><span class="price">${rp(p.price)}</span><button class="btn sm" type="button" data-add="${p.id}">Tambah</button></div></div></article>`}
+let cat="Semua";
+function renderShop(){
+  $("#filters").innerHTML=CONFIG.categories.map(c=>`<button class="chip" type="button" aria-pressed="${c===cat}" data-cat="${c}">${c}</button>`).join("");
+  $("#shop").innerHTML=CONFIG.products.filter(p=>cat==="Semua"||p.cat===cat).map(card).join("");
+  renderCart();
+}
+$("#filters").addEventListener("click",e=>{const b=e.target.closest("[data-cat]");if(b){cat=b.dataset.cat;renderShop()}});
+function renderStatic(){
+  $("#bestsellers").innerHTML=CONFIG.products.filter(p=>p.best).map(card).join("");
+  $("#gallery").innerHTML=CONFIG.gallery.map((g,i)=>`<button type="button" data-g="${i}" aria-label="Perbesar: ${esc(g.cap)}">${photo(g.img,g.pos,g.cap)}<span>${esc(g.cap)}</span></button>`).join("");
+  $("#hoursTbl").innerHTML=CONFIG.hours.map(h=>`<tr><td>${esc(h[0])}</td><td>${esc(h[1])}</td></tr>`).join("");
+  $("#ticketTbl").innerHTML=CONFIG.tickets.map(t=>`<tr><td>${esc(t.name)}</td><td>${rp(t.price)}</td></tr>`).join("");
+  $("#facList").innerHTML=CONFIG.facilities.map(f=>`<li>${esc(f)}</li>`).join("");
+  $("#mapCard").innerHTML=`<a class="pic" href="${mapsUrl}" target="_blank" rel="noopener" aria-label="Buka peta Sae Park di Google Maps"><img src="img/peta.jpg" alt="Citra satelit lokasi Salatiga Eco Park dan SAE Resto di tepi Jl. Magelang–Salatiga" loading="lazy"><span class="credit">Peta: Google Maps</span></a><div class="body"><div><h3>${esc(CONFIG.name)}</h3><p class="muted small">${esc(CONFIG.address)}</p></div><a class="btn" href="${mapsUrl}" target="_blank" rel="noopener">Buka di Google Maps</a></div>`;
+  $("#waShow").textContent=CONFIG.whatsappLabel;$("#igShow").textContent="@"+CONFIG.instagram;
+  $("#waDirect").href=wa("Halo Sae Park, saya ingin bertanya.");$("#igDirect").href=igUrl;
+  $("#fWa").href=wa("Halo Sae Park, saya ingin bertanya.");$("#fIg").href=igUrl;
+  heroArt();
+}
+/* lightbox */
+const lb=$("#lightbox");
+document.addEventListener("click",e=>{const g=e.target.closest("[data-g]");if(g){const i=+g.dataset.g;$("#lbArt").innerHTML=`<img src="img/${CONFIG.gallery[i].img}.jpg" alt="${esc(CONFIG.gallery[i].cap)}">`;$("#lbCap").textContent=CONFIG.gallery[i].cap;lb.showModal()}});
+$("#lbClose").onclick=()=>lb.close();
+lb.addEventListener("click",e=>{if(e.target===lb)lb.close()});
+
+/* ---------- pesan ---------- */
+const valPhone=v=>/^\+?[0-9][0-9\s-]{7,16}$/.test(v.trim());
+function msgText(){
+  const items=Object.entries(cart).map(([id,q])=>[find(id),q]).filter(x=>x[0]);
+  const d=$("#f-date").value;
+  return ["Halo Sae Park, saya ingin memesan:","",...items.map(([it,q])=>`• ${q} × ${it.name} (${rp(it.price*q)})`),"",`Total: ${rp(total())}`,d?`Tanggal kunjungan: ${new Date(d+"T00:00").toLocaleDateString("id-ID",{day:"numeric",month:"long",year:"numeric"})}`:"",`Pembayaran: ${$("#f-pay").value}`,"",`Nama: ${$("#f-name").value.trim()}`,`WhatsApp: ${$("#f-phone").value.trim()}`,$("#f-note").value.trim()?`Catatan: ${$("#f-note").value.trim()}`:""].filter((l,i,a)=>!(l===""&&a[i-1]==="")).join("\n").trim();
+}
+$("#orderForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const okN=$("#f-name").value.trim().length>1,okP=valPhone($("#f-phone").value),okC=count()>0;
+  $("#e-name").hidden=okN;$("#e-phone").hidden=okP;$("#e-cart").hidden=okC;
+  if(!(okN&&okP&&okC))return;
+  const t=msgText();$("#msg").textContent=t;$("#waSend").href=wa(t);$("#done").hidden=false;$("#done").scrollIntoView({behavior:"smooth",block:"nearest"});
+});
+$("#copyMsg").onclick=async()=>{
+  const t=$("#msg").textContent;
+  try{await navigator.clipboard.writeText(t);toast("Pesan disalin")}catch(e){const r=document.createRange();r.selectNodeContents($("#msg"));const s=getSelection();s.removeAllRanges();s.addRange(r);toast("Pesan dipilih, salin manual")}
+};
+$("#askForm").addEventListener("submit",e=>{
+  e.preventDefault();
+  const m=$("#a-msg").value.trim();$("#e-ask").hidden=!!m;if(!m)return;
+  const n=$("#a-name").value.trim(),p=$("#a-phone").value.trim();
+  const url=wa(`Halo Sae Park, ${m}${n?`\n\nSalam, ${n}`:""}${p?` (${p})`:""}`);
+  window.open(url,"_blank","noopener")||(location.href=url);
+});
+
+/* ---------- navigasi ---------- */
+const PAGES=["beranda","wisata","informasi","toko","pemesanan","kontak"];
+function route(){
+  let h=location.hash.replace("#","");if(!PAGES.includes(h))h="beranda";
+  $$(".page").forEach(p=>p.classList.toggle("active",p.id==="p-"+h));
+  $$("[data-nav]").forEach(a=>a.dataset.nav===h?a.setAttribute("aria-current","page"):a.removeAttribute("aria-current"));
+  $("#mainnav").classList.remove("open");$("#menubtn").setAttribute("aria-expanded","false");
+  document.title="Sae Park Hub";scrollTo(0,0);
+}
+addEventListener("hashchange",route);
+$("#menubtn").onclick=()=>{const o=$("#mainnav").classList.toggle("open");$("#menubtn").setAttribute("aria-expanded",o)};
+$("#noticeClose").onclick=()=>$("#notice").hidden=true;
+(function(){const d=new Date();d.setDate(d.getDate()+1);$("#f-date").min=new Date().toISOString().slice(0,10);})();
+
+renderStatic();renderShop();route();
+</script>
+
+</body></html>
